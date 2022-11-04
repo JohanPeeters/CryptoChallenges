@@ -1,7 +1,7 @@
 Transform: AWS::Serverless-2016-10-31
 
 Resources:
-  createChallengeFunction:
+  hashChallengeFunction:
     Type: AWS::Serverless::Function
     Properties:
       PackageType: Image
@@ -13,55 +13,17 @@ Resources:
          - DynamoDBCrudPolicy:
              TableName: !Ref hashChallengeTable
       Events:
-        Api:
+        Create:
           Type: Api
           Properties:
             Path: /
             Method: POST
-      Environment:
-        Variables:
-          TABLE_NAME: !Ref hashChallengeTable
-    Metadata:
-      DockerTag: crypto-challenges
-      DockerContext: .
-      Dockerfile: Dockerfile
-  readChallengeFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      PackageType: Image
-      Architectures:
-        - x86_64
-      Policies:
-         # Give Create/Read/Update/Delete Permissions  on the table
-         # Todo: restrict to create only
-         - DynamoDBCrudPolicy:
-             TableName: !Ref hashChallengeTable
-      Events:
-        Api:
+        Read:
           Type: Api
           Properties:
             Path: /{challengeId}
             Method: GET
-      Environment:
-        Variables:
-          TABLE_NAME: !Ref hashChallengeTable
-    Metadata:
-      DockerTag: crypto-challenges
-      DockerContext: .
-      Dockerfile: Dockerfile
-  deleteChallengeFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      PackageType: Image
-      Architectures:
-        - x86_64
-      Policies:
-         # Give Create/Read/Update/Delete Permissions  on the table
-         # Todo: restrict to delete only
-         - DynamoDBCrudPolicy:
-             TableName: !Ref hashChallengeTable
-      Events:
-        Api:
+        Delete:
           Type: Api
           Properties:
             Path: /{challengeId}

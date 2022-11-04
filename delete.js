@@ -42,9 +42,7 @@ function badRequest(errorMessage) {
 export default async (ddbClient, event, context) => {
     console.debug(`event.body is ${event.body}`)
     if (!event.body || !JSON.parse(event.body).prefix) return badRequest('no prefix')
-   // if (!event.body) return badRequest('no prefix')
     let prefix = JSON.parse(event.body).prefix
-   // if (!prefix)  return badRequest('no prefix')
     try {
         prefix = _sodium.from_base64(prefix, _sodium.base64_variants.ORIGINAL)
     } catch (err) {
@@ -83,7 +81,8 @@ export default async (ddbClient, event, context) => {
             'statusCode': 200,
             'body': JSON.stringify({
                 message: marshalledItemToDelete.message,
-                hash: _sodium.to_base64(hash, _sodium.base64_variants.ORIGINAL)
+                hash: _sodium.to_base64(hash, _sodium.base64_variants.ORIGINAL),
+                nbrOfAttempts: 3 - marshalledItemToDelete.attemptsRemaining + 1
             })
         }
     } else {

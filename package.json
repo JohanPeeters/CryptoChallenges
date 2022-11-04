@@ -1,21 +1,9 @@
 {
   "name": "cryptochallenges",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "app.js",
   "type": "module",
-  "scripts": {
-    "test": "http -v http://localhost:9000/2015-03-31/functions/function/invocations < test/data/events/create.json",
-    "build": "docker build -t crypto-lambda:latest .",
-    "stop": "docker container stop crypto-devtest",
-    "restart": "docker container restart crypto-devtest",
-    "rm": "docker container rm crypto-devtest",
-    "run": "docker run -d -p 9000:8080  --name crypto-devtest --mount type=bind,source=$(pwd),target=/var/task,readonly crypto-lambda:latest",
-    "start-local-servers": "docker compose up",
-    "restart-local-server": "docker compose restart lambda",
-    "shell": "docker exec -it crypto-devtest /bin/sh",
-    "dynamo-shell": "docker exec -it dynamodb-local /bin/sh"
-  },
   "author": "Johan Peeters",
   "license": "ISC",
   "dependencies": {

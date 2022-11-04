@@ -2,10 +2,10 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "crypto-challenges-dev"
+stack_name = "crypto-challenges"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-6rgq5404p7p"
-s3_prefix = "crypto-challenges-dev"
+s3_prefix = "crypto-challenges"
 region = "eu-west-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-image_repositories = ["createChallengeFunction=384078725812.dkr.ecr.eu-west-1.amazonaws.com/cryptochallengesdev121454f1/createchallengefunction119ef7berepo", "readChallengeFunction=384078725812.dkr.ecr.eu-west-1.amazonaws.com/cryptochallengesdev121454f1/readchallengefunctionf7529509repo", "deleteChallengeFunction=384078725812.dkr.ecr.eu-west-1.amazonaws.com/cryptochallengesdev121454f1/deletechallengefunction5d5c0a7arepo"]
+image_repositories = ["hashChallengeFunction=384078725812.dkr.ecr.eu-west-1.amazonaws.com/cryptochallenges5f80f56e/hashchallengefunction9f056fafrepo"]
