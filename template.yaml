@@ -1,0 +1,88 @@
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  createChallengeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Policies:
+         # Give Create/Read/Update/Delete Permissions on the table
+         # Todo: restrict to create only
+         - DynamoDBCrudPolicy:
+             TableName: !Ref hashChallengeTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /
+            Method: POST
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref hashChallengeTable
+    Metadata:
+      DockerTag: crypto-challenges
+      DockerContext: .
+      Dockerfile: Dockerfile
+  readChallengeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Policies:
+         # Give Create/Read/Update/Delete Permissions  on the table
+         # Todo: restrict to create only
+         - DynamoDBCrudPolicy:
+             TableName: !Ref hashChallengeTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /{challengeId}
+            Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref hashChallengeTable
+    Metadata:
+      DockerTag: crypto-challenges
+      DockerContext: .
+      Dockerfile: Dockerfile
+  deleteChallengeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Policies:
+         # Give Create/Read/Update/Delete Permissions  on the table
+         # Todo: restrict to delete only
+         - DynamoDBCrudPolicy:
+             TableName: !Ref hashChallengeTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /{challengeId}
+            Method: DELETE
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref hashChallengeTable
+    Metadata:
+      DockerTag: crypto-challenges
+      DockerContext: .
+      Dockerfile: Dockerfile
+  hashChallengeTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: ChallengeId
+        Type: Number
+      TableName: ehb-hash-challenge
+      
+
+Outputs:
+  WebEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
