@@ -1,5 +1,8 @@
 {
-    "Parameters": {
+    "hashChallengeFunction": {
         "TABLE_NAME": "ehb-hash-challenge"
+    },
+    "decryptChallengeFunction": {
+        "TABLE_NAME": "ehb-decrypt-challenge"
     }
 }

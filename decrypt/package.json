@@ -1,0 +1,15 @@
+{
+  "name": "encrypt",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha tests/unit"
+  },
+  "author": "Johan Peeters",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.36.0",
+    "libsodium-wrappers": "^0.7.9"
+  }
+}

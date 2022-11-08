@@ -1,12 +1,20 @@
 Transform: AWS::Serverless-2016-10-31
 
+Globals:
+  Function:
+    Timeout: 10
+
 Resources:
   hashChallengeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      PackageType: Image
-      Architectures:
-        - x86_64
+      PackageType: Zip
+      CodeUri: ./hash
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      # PackageType: Image
+      # Architectures:
+      #   - x86_64
       Policies:
          # Give Create/Read/Update/Delete Permissions on the table
          # Todo: restrict to create only
@@ -16,25 +24,47 @@ Resources:
         Create:
           Type: Api
           Properties:
-            Path: /
+            Path: /hash
             Method: POST
         Read:
           Type: Api
           Properties:
-            Path: /{challengeId}
+            Path: /hash/{challengeId}
             Method: GET
         Delete:
           Type: Api
           Properties:
-            Path: /{challengeId}
+            Path: /hash/{challengeId}
             Method: DELETE
       Environment:
         Variables:
           TABLE_NAME: !Ref hashChallengeTable
-    Metadata:
-      DockerTag: crypto-challenges
-      DockerContext: .
-      Dockerfile: Dockerfile
+  decryptChallengeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Zip
+      CodeUri: ./decrypt
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Events:
+        Create:
+          Type: Api
+          Properties:
+            Path: /decrypt
+            Method: POST
+        Read:
+          Type: Api
+          Properties:
+            Path: /decrypt/{challengeId}
+            Method: GET
+        Delete:
+          Type: Api
+          Properties:
+            Path: /decrypt/{challengeId}
+            Method: DELETE
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref decryptChallengeTable
   hashChallengeTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -42,6 +72,13 @@ Resources:
         Name: ChallengeId
         Type: Number
       TableName: ehb-hash-challenge
+  decryptChallengeTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: ChallengeId
+        Type: Number
+      TableName: ehb-decrypt-challenge
       
 
 Outputs:

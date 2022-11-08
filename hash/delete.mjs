@@ -1,6 +1,6 @@
 import _sodium from 'libsodium-wrappers'
 import {DeleteItemCommand, UpdateItemCommand} from '@aws-sdk/client-dynamodb'
-import {resource, marshall} from './read.js'
+import {resource, marshall} from './read.mjs'
 const REGION = process.env.REGION
 const tableName = process.env.TABLE_NAME
 

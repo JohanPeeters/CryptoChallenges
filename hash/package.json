@@ -2,8 +2,6 @@
   "name": "cryptochallenges",
   "version": "0.1.0",
   "description": "",
-  "main": "app.js",
-  "type": "module",
   "author": "Johan Peeters",
   "license": "ISC",
   "dependencies": {

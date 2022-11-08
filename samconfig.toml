@@ -8,4 +8,4 @@ s3_prefix = "crypto-challenges"
 region = "eu-west-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-image_repositories = ["hashChallengeFunction=384078725812.dkr.ecr.eu-west-1.amazonaws.com/cryptochallenges5f80f56e/hashchallengefunction9f056fafrepo"]
+image_repositories = []

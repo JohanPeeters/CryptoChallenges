@@ -1,6 +1,6 @@
 import _sodium from 'libsodium-wrappers'
 import {PutItemCommand} from '@aws-sdk/client-dynamodb'
-import {marshall, resource} from './read.js'
+import {marshall, resource} from './read.mjs'
 
 export default async(ddbClient, event, context) => {
     console.debug('v0.0.4 create request received')

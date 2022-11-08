@@ -1,8 +1,8 @@
 import _sodium from 'libsodium-wrappers'
 import {DynamoDBClient} from '@aws-sdk/client-dynamodb'
-import postRequest from './create.js'
-import getResponse from './read.js'
-import deleteResponse from './delete.js'
+import postRequest from './create.mjs'
+import getResponse from './read.mjs'
+import deleteResponse from './delete.mjs'
 const REGION = process.env.REGION
 const ddbClient = new DynamoDBClient({
     region: REGION
@@ -54,5 +54,5 @@ export async function lambdaHandler(event, context) {
             }
         }
     }
-    return response;
+    return response
 }
